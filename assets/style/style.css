@@ -10,7 +10,7 @@ body {
   background-color: var(--halloween-black);
   color: #f0f0f0;
   font-family: "magicmedieval", cursive, Arial, sans-serif;
-  background-image: url("/page_cmd_clandestino/src/images/tumblr_449b9cde6703960ee657bb986dc0d798_7f8efdd6_1280.jpg");
+  background-image: url("/src/images/tumblr_449b9cde6703960ee657bb986dc0d798_7f8efdd6_1280.jpg");
   background-size: cover;
   background-attachment: fixed;
   background-position: center top;
