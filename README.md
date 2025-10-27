@@ -1,5 +1,3 @@
-# page_cmd_clandestino
-
 # 🎃 Torneio de Commander (EDH) - Gerenciador de Mesas e Análise de Decks
 
 [![GitHub Pages](https://github.githubassets.com/images/modules/site/features/pages-logo-small.svg)](https://docs.github.com/pt/pages/getting-started-with-github-pages/creating-a-github-pages-site)
