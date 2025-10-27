@@ -165,7 +165,6 @@ function loadData() {
 
 // ==== Análise de Decks (escopo global agora) ====
 function analyzeDeck(deck) {
-  // Base de seed para resultados consistentes
   const seed = (deck.name?.length || 0) + (deck.playerId || 0);
   const consistentRandom = (subSeed, min, max) => {
     let h = seed + subSeed;
@@ -173,41 +172,53 @@ function analyzeDeck(deck) {
     return Math.floor((h / 233280) * (max - min + 1)) + min;
   };
 
-  // 1️⃣ Estimativa de turno de vitória (quanto mais cedo, mais forte)
-  const winTurnEstimate = consistentRandom(10, 4, 12); // média entre turno 4 e 12
-  let speedFactor = 0;
-  if (winTurnEstimate <= 5) speedFactor = +3;
-  else if (winTurnEstimate <= 7) speedFactor = +2;
-  else if (winTurnEstimate <= 9) speedFactor = +1;
-  else speedFactor = 0;
+  // --- 1. Fatores principais ---
 
-  // 2️⃣ Checagem de "Game Changers" (lista simplificada)
-  const gameChangers = [
-    "Thassa's Oracle",
-    "Demonic Consultation",
-    "Dockside Extortionist",
-    "Jeweled Lotus",
-    "Mana Crypt",
-    "Ad Nauseam",
-    "Underworld Breach",
-    "Tainted Pact",
-    "Timetwister",
-    "Deflecting Swat",
-    "Fierce Guardianship",
-  ];
+  const winTurnEstimate = consistentRandom(10, 4, 12);
   const hasGameChangers =
     deck.link &&
-    gameChangers.some((card) =>
-      deck.link.toLowerCase().includes(card.toLowerCase())
-    );
-  const gameChangerBonus = hasGameChangers ? 2 : 0;
+    [
+      "Thassa's Oracle",
+      "Demonic Consultation",
+      "Dockside Extortionist",
+      "Jeweled Lotus",
+      "Ad Nauseam",
+      "Underworld Breach",
+      "Mana Crypt",
+    ].some((c) => deck.link.toLowerCase().includes(c.toLowerCase()));
 
-  // 3️⃣ Tutores / Combos (estimados aleatoriamente se não há parser de lista)
-  const tutorDensity = consistentRandom(20, 0, 5); // 0 = nenhum, 5 = muitos
+  const tutorDensity = consistentRandom(20, 0, 5);
   const comboDensity = consistentRandom(30, 0, 5);
-  const consistencyBonus = Math.floor((tutorDensity + comboDensity) / 3);
 
-  // 4️⃣ Curva de mana e tipos de carta (variação cosmética)
+  // --- 2. Base de poder mais conservadora ---
+
+  // Começa em 3–7, com leve ruído controlado
+  let basePower = 3 + consistentRandom(5, 0, 4);
+
+  // Penalização e bônus controlados
+  if (winTurnEstimate <= 5) basePower += 2;
+  else if (winTurnEstimate >= 10) basePower -= 1;
+
+  if (hasGameChangers) basePower += 2;
+  if (tutorDensity >= 4 || comboDensity >= 4) basePower += 1;
+  if (tutorDensity <= 1 && comboDensity <= 1) basePower -= 1;
+
+  // Mantém dentro do intervalo 1–10
+  basePower = Math.max(1, Math.min(10, basePower));
+
+  // --- 3. Brackets atualizados (alinhados à Moxfield) ---
+  let bracket = "";
+  if (basePower <= 2) bracket = "Exhibition";
+  else if (basePower <= 4) bracket = "Core";
+  else if (basePower <= 6) bracket = "Upgraded";
+  else if (basePower <= 8) bracket = "Optimized";
+  else bracket = "cEDH";
+
+  // --- 4. Métricas secundárias ---
+  const synergyScore = consistentRandom(100, 60, 90);
+  const consistencyScore = 60 + tutorDensity * 8;
+  const resilienceScore = 60 + comboDensity * 5;
+
   const manaCurve = {
     "0-1": consistentRandom(40, 5, 15),
     2: consistentRandom(50, 10, 20),
@@ -224,40 +235,23 @@ function analyzeDeck(deck) {
     Terrenos: consistentRandom(130, 35, 40),
   };
 
-  // 5️⃣ Cálculo final de Power Level
-  let basePower = Math.floor(
-    (seed % 10) + speedFactor + gameChangerBonus + consistencyBonus
-  );
-  basePower = Math.max(1, Math.min(basePower, 10)); // limita 1–10
-
-  // 6️⃣ Brackets oficiais 2025 (CFP)
-  let bracket = "";
-  if (basePower <= 2) bracket = "Exhibition";
-  else if (basePower <= 4) bracket = "Core";
-  else if (basePower <= 6) bracket = "Upgraded";
-  else if (basePower <= 8) bracket = "Optimized";
-  else bracket = "cEDH";
-
-  // 7️⃣ Scores secundários (ajuste fino)
-  const synergyScore = consistentRandom(140, 60, 95);
-  const resilienceScore = consistentRandom(150, 50, 90);
-  const consistencyScore = Math.min(100, 50 + consistencyBonus * 10);
-
-  // 8️⃣ Observações (pontos fortes e fracos)
+  // --- 5. Pontos fortes e fracos ---
   const strengths = [];
   const weaknesses = [];
 
   if (hasGameChangers)
-    strengths.push("Contém cartas de impacto decisivo (Game Changers)");
-  if (speedFactor >= 2) strengths.push("Alta velocidade de execução");
-  if (consistencyBonus >= 2)
-    strengths.push("Alta consistência de tutores/combos");
-  if (winTurnEstimate > 9)
-    weaknesses.push("Curva lenta / dependente de late game");
-  if (resilienceScore < 60)
-    weaknesses.push("Baixa resiliência a remoções globais");
+    strengths.push("Inclui cartas de impacto decisivo (Game Changers)");
+  if (winTurnEstimate <= 6)
+    strengths.push("Curva agressiva, tende a vencer cedo");
+  if (tutorDensity >= 3) strengths.push("Alta consistência de tutores");
+  if (comboDensity >= 3) strengths.push("Potencial de combos múltiplos");
 
-  // Resultado final
+  if (winTurnEstimate >= 10)
+    weaknesses.push("Curva lenta, foco em longo prazo");
+  if (resilienceScore < 65)
+    weaknesses.push("Baixa resiliência a remoções e hate");
+  if (!hasGameChangers) weaknesses.push("Sem peças decisivas de finalização");
+
   return {
     powerLevel: basePower,
     bracket,
