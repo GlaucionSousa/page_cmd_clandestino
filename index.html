@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Torneio de Commander - Halloween</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap"
+      rel="stylesheet" />
+    <link rel="stylesheet" href="/assets/style/style.css" />
+  </head>
+<body>
+  <body>
+    <header class="halloween-header text-center">
+        <div class="container">
+          <img src="./src/images/magic-logo.webp" alt="Magic: The Gathering Logo" class="magic-logo mb-3 floating">
+            <h1 class="display-4"><i class="fas fa-ghost me-2 floating"></i>Commander Clandestino - Halloween <i class="fas fa-ghost ms-2 floating"></i></h1>
+            <p class="lead">Um evento assustadoramente divertido entre amigos!</p>
+        </div>
+    </header>
+
+    <div class="container my-4">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="players-tab" data-bs-toggle="tab" data-bs-target="#players" type="button" role="tab" aria-controls="players" aria-selected="true">
+                    <i class="fas fa-users me-2"></i>Jogadores
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="decks-tab" data-bs-toggle="tab" data-bs-target="#decks" type="button" role="tab" aria-controls="decks" aria-selected="false">
+                    <i class="fas fa-layer-group me-2"></i>Decks
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tables-tab" data-bs-toggle="tab" data-bs-target="#tables" type="button" role="tab" aria-controls="tables" aria-selected="false">
+                    <i class="fas fa-chess-board me-2"></i>Mesas
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="results-tab" data-bs-toggle="tab" data-bs-target="#results" type="button" role="tab" aria-controls="results" aria-selected="false">
+                    <i class="fas fa-trophy me-2"></i>Resultados
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="analysis-tab" data-bs-toggle="tab" data-bs-target="#analysis" type="button" role="tab" aria-controls="analysis" aria-selected="false">
+                    <i class="fas fa-robot me-2"></i>Análise de Decks
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="notes-tab" data-bs-toggle="tab" data-bs-target="#notes" type="button" role="tab" aria-controls="notes" aria-selected="false">
+                    <i class="fas fa-clipboard-list me-2"></i>Notas
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="players" role="tabpanel" aria-labelledby="players-tab">
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-undo me-2"></i>Opções do Torneio
+                            </div>
+                            <div class="card-body">
+                                <button id="reset-tournament-btn" class="btn btn-danger w-100">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>Resetar Torneio
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-user-plus me-2"></i>Adicionar Jogador
+                            </div>
+                            <div class="card-body">
+                                <form id="player-form">
+                                    <div class="mb-3">
+                                        <label for="player-name" class="form-label">Nome do Jogador</label>
+                                        <input type="text" class="form-control" id="player-name" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-halloween w-100">
+                                        <i class="fas fa-plus me-2"></i>Adicionar Jogador
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-users me-2"></i>Lista de Jogadores
+                            </div>
+                            <div class="card-body">
+                                <div class="table-container">
+                                    <table class="table table-hover table-halloween">
+                                        <thead>
+                                            <tr>
+                                                <th>Nome</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="players-list">
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="decks" role="tabpanel" aria-labelledby="decks-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-layer-group me-2"></i>Cadastrar Deck
+                            </div>
+                            <div class="card-body">
+                                <form id="deck-form">
+                                    <div class="mb-3">
+                                        <label for="player-select" class="form-label">Jogador</label>
+                                        <select class="form-control" id="player-select" required>
+                                            <option value="">Selecione um jogador</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="deck-name" class="form-label">Nome do Deck</label>
+                                        <input type="text" class="form-control" id="deck-name" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="deck-link" class="form-label">Link do Deck (LigaMagic)</label>
+                                        <input type="url" class="form-control" id="deck-link" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-halloween w-100">
+                                        <i class="fas fa-save me-2"></i>Cadastrar Deck
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-list me-2"></i>Decks Cadastrados
+                            </div>
+                            <div class="card-body">
+                                <div class="table-container">
+                                    <table class="table table-hover table-halloween">
+                                        <thead>
+                                            <tr>
+                                                <th>Jogador</th>
+                                                <th>Deck</th>
+                                                <th>Power Level</th>
+                                                <th>Bracket</th>
+                                                <th>Link</th>
+                                                <th>Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="decks-list">
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div class="tab-pane fade" id="tables" role="tabpanel" aria-labelledby="tables-tab">
+                <div class="row mb-4">
+                    <div class="col-12 text-center">
+                        <div class="card bg-dark">
+                            <div class="card-body">
+                                <h2 class="display-3" id="timer-display">60:00</h2>
+                                <div class="btn-group" role="group" aria-label="Controle do Cronômetro">
+                                    <button id="start-timer" class="btn btn-halloween btn-lg me-2">
+                                        <i class="fas fa-play me-2"></i>Iniciar
+                                    </button>
+                                    <button id="reset-timer" class="btn btn-danger btn-lg">
+                                        <i class="fas fa-redo me-2"></i>Resetar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-12 text-center">
+                        <button id="generate-tables" class="btn btn-halloween btn-lg">
+                            <i class="fas fa-random me-2"></i>Sortear Mesas
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-chess-board me-2"></i>Mesas Sorteadas
+                            </div>
+                            <div class="card-body">
+                                <div id="tables-container">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-user-clock me-2"></i>Jogadores com Bye
+                            </div>
+                            <div class="card-body">
+                                <div id="bye-players">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="results" role="tabpanel" aria-labelledby="results-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-edit me-2"></i>Registrar Resultados
+                            </div>
+                            <div class="card-body">
+                                <form id="result-form">
+                                    <div class="mb-3">
+                                        <label for="match-select" class="form-label">Mesa</label>
+                                        <select class="form-control" id="match-select" required>
+                                            <option value="">Selecione uma mesa</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Resultados</label>
+                                        <div id="players-results">
+                                            </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-halloween w-100">
+                                        <i class="fas fa-check me-2"></i>Registrar Resultados
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-trophy me-2"></i>Classificação
+                            </div>
+                            <div class="card-body">
+                                <div class="table-container">
+                                    <table class="table table-hover table-halloween">
+                                        <thead>
+                                            <tr>
+                                                <th>Pos</th>
+                                                <th>Jogador</th>
+                                                <th>Vitórias</th>
+                                                <th>Empates</th>
+                                                <th>Derrotas</th>
+                                                <th>Byes</th>
+                                                <th>Pontos</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="ranking-table">
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="analysis" role="tabpanel" aria-labelledby="analysis-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-robot me-2"></i>Análise de Power Level
+                            </div>
+                            <div class="card-body">
+                                <p>Nossa IA analisa automaticamente os decks cadastrados e classifica seu power level e bracket conforme as regras atuais do Commander.</p>
+                                <div class="mb-3">
+                                    <label class="form-label">Escala de Power Level:</label>
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <span class="power-level-badge power-level-1">1</span>
+                                        <span class="power-level-badge power-level-2">2</span>
+                                        <span class="power-level-badge power-level-3">3</span>
+                                        <span class="power-level-badge power-level-4">4</span>
+                                        <span class="power-level-badge power-level-5">5</span>
+                                        <span class="power-level-badge power-level-6">6</span>
+                                        <span class="power-level-badge power-level-7">7</span>
+                                        <span class="power-level-badge power-level-8">8</span>
+                                        <span class="power-level-badge power-level-9">9</span>
+                                        <span class="power-level-badge power-level-10">10</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <small>Jank</small>
+                                        <small>Casual</small>
+                                        <small>Focado</small>
+                                        <small>Otimizado</small>
+                                        <small>Competitivo</small>
+                                    </div>
+                                </div>
+<div class="mb-3">
+    <label class="form-label">Brackets:</label>
+    <div>
+        <span class="bracket-badge bracket-jank me-2">Jank</span>
+        <span class="bracket-badge bracket-casual me-2">Casual</span>
+        <span class="bracket-badge bracket-focused me-2">Focused</span>
+        <span class="bracket-badge bracket-optimized me-2">Optimized</span>
+        <span class="bracket-badge bracket-competitive">Competitive</span>
+    </div>
+</div>
+                                <button id="analyze-all-decks" class="btn btn-halloween w-100">
+                                    <i class="fas fa-cogs me-2"></i>Analisar Todos os Decks
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-chart-bar me-2"></i>Distribuição de Power Level
+                            </div>
+                            <div class="card-body">
+                                <div id="power-level-chart">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-list-alt me-2"></i>Análises Individuais
+                            </div>
+                            <div class="card-body">
+                                <div id="deck-analysis-list">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-plus me-2"></i>Adicionar Nova Nota
+                            </div>
+                            <div class="card-body">
+                                <form id="note-form">
+                                    <div class="mb-3">
+                                        <label for="note-text" class="form-label">Conteúdo da Nota</label>
+                                        <textarea class="form-control" id="note-text" rows="4" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn btn-halloween w-100">
+                                        <i class="fas fa-save me-2"></i>Adicionar Nota
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <i class="fas fa-list me-2"></i>Notas Atuais
+                            </div>
+                            <div class="card-body">
+                                <div id="notes-list">
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <footer class="halloween-footer text-center">
+        <div class="container">
+            <p class="mb-0">Torneio de Commander - Halloween &copy; 2025</p>
+            <p class="mb-0">Que a sorte esteja com você... se você não for assustado antes!</p>
+        </div>
+    </footer>
+
+    <div class="modal fade" id="editPlayerModal" tabindex="-1" aria-labelledby="editPlayerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editPlayerModalLabel">Editar Jogador</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="edit-player-form">
+                        <input type="hidden" id="edit-player-id">
+                        <div class="mb-3">
+                            <label for="edit-player-name" class="form-label">Nome do Jogador</label>
+                            <input type="text" class="form-control" id="edit-player-name" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-halloween" id="save-player-changes">Salvar Alterações</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deckAnalysisModal" tabindex="-1" aria-labelledby="deckAnalysisModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deckAnalysisModalLabel">Análise Detalhada do Deck</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="detailed-analysis-content">
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-halloween" data-bs-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/assets/script/script.js"></script>
+</body>
+</html>

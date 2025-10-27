@@ -1,0 +1,430 @@
+:root {
+  --halloween-orange: #ff7518;
+  --halloween-purple: #6a0dad;
+  --halloween-green: #228b22;
+  --halloween-black: #1a1a1a;
+  --halloween-dark: #2d2d2d;
+}
+
+body {
+  background-color: var(--halloween-black);
+  color: #f0f0f0;
+  font-family: "magicmedieval", cursive, Arial, sans-serif;
+  background-image: url("/src/images/tumblr_449b9cde6703960ee657bb986dc0d798_7f8efdd6_1280.jpg");
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center top;
+  /* Fundo escuro semi-transparente para melhor leitura */
+  background-blend-mode: multiply;
+  background-color: rgba(
+    26,
+    26,
+    26,
+    0.85
+  ); /* var(--halloween-black) com opacidade */
+}
+
+.medievalsharp-regular {
+  font-family: "MedievalSharp", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Estilo para a logo do Magic no cabeçalho */
+.magic-logo {
+  max-height: 80px;
+  width: auto;
+}
+
+.halloween-header {
+  background: linear-gradient(
+    135deg,
+    var(--halloween-purple),
+    var(--halloween-orange)
+  );
+  padding: 20px 0;
+  border-bottom: 5px solid var(--halloween-green);
+  position: relative;
+  overflow: hidden;
+}
+
+.halloween-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path d="M20,5 C25,5 30,10 30,15 C30,20 25,25 20,25 C15,25 10,20 10,15 C10,10 15,5 20,5 Z M15,10 C13,12 12,14 12,16 C12,18 13,20 15,22 M25,10 C27,12 28,14 28,16 C28,18 27,20 25,22" fill="none" stroke="%23ffffff33" stroke-width="1"/></svg>');
+  opacity: 0.2;
+}
+
+.card {
+  background-color: var(--halloween-dark);
+  border: 1px solid var(--halloween-orange);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background: linear-gradient(
+    to right,
+    var(--halloween-purple),
+    var(--halloween-orange)
+  );
+  color: white;
+  border-bottom: 1px solid var(--halloween-orange);
+  font-weight: bold;
+}
+
+.btn-halloween {
+  background: linear-gradient(
+    to right,
+    var(--halloween-purple),
+    var(--halloween-orange)
+  );
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.btn-halloween:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.table-halloween {
+  background-color: var(--halloween-dark);
+  color: #f0f0f0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.table-halloween th {
+  background-color: var(--halloween-purple);
+  color: white;
+}
+
+.table-halloween tr:nth-child(even) {
+  background-color: rgba(255, 117, 24, 0.1);
+}
+
+.pumpkin {
+  color: var(--halloween-orange);
+  font-size: 1.5rem;
+}
+
+.ghost {
+  color: #f0f0f0;
+  font-size: 1.5rem;
+}
+
+.bat {
+  color: var(--halloween-black);
+  font-size: 1.5rem;
+}
+
+.spider {
+  color: #8b0000;
+  font-size: 1.5rem;
+}
+
+.floating {
+  animation: floating 3s ease-in-out infinite;
+}
+
+@keyframes floating {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.tab-content {
+  padding: 20px;
+  border: 1px solid var(--halloween-orange);
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+}
+
+.nav-tabs .nav-link {
+  color: #f0f0f0;
+  background-color: var(--halloween-dark);
+  border: 1px solid var(--halloween-orange);
+}
+
+.nav-tabs .nav-link.active {
+  background-color: var(--halloween-orange);
+  color: white;
+  border: 1px solid var(--halloween-orange);
+}
+
+.player-card {
+  background: linear-gradient(
+    135deg,
+    var(--halloween-purple),
+    var(--halloween-orange)
+  );
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.player-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30"><path d="M15,5 C20,5 25,10 25,15 C25,20 20,25 15,25 C10,25 5,20 5,15 C5,10 10,5 15,5 Z M12,10 C10,12 9,14 9,16 C9,18 10,20 12,22 M18,10 C20,12 21,14 21,16 C21,18 20,20 18,22" fill="none" stroke="%23ffffff33" stroke-width="1"/></svg>');
+  opacity: 0.2;
+}
+
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.deck-link {
+  color: var(--halloween-orange);
+  text-decoration: none;
+}
+
+.deck-link:hover {
+  color: var(--halloween-green);
+  text-decoration: underline;
+}
+
+.modal-content {
+  background-color: var(--halloween-dark);
+  color: #f0f0f0;
+  border: 2px solid var(--halloween-orange);
+}
+
+.modal-header {
+  border-bottom: 1px solid var(--halloween-orange);
+}
+
+.modal-footer {
+  border-top: 1px solid var(--halloween-orange);
+}
+
+.form-control {
+  background-color: #333;
+  border: 1px solid var(--halloween-orange);
+  color: #f0f0f0;
+}
+
+.form-control:focus {
+  background-color: #444;
+  border-color: var(--halloween-green);
+  color: #f0f0f0;
+  box-shadow: 0 0 0 0.2rem rgba(34, 139, 34, 0.25);
+}
+
+.form-label {
+  color: #f0f0f0;
+}
+
+.halloween-footer {
+  background: linear-gradient(
+    135deg,
+    var(--halloween-purple),
+    var(--halloween-orange)
+  );
+  padding: 20px 0;
+  border-top: 5px solid var(--halloween-green);
+  margin-top: 30px;
+}
+
+.round-indicator {
+  background-color: var(--halloween-orange);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.match-card {
+  background-color: rgba(255, 117, 24, 0.1);
+  border: 1px solid var(--halloween-orange);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.trophy {
+  color: gold;
+  font-size: 1.5rem;
+}
+
+.power-level-badge {
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.power-level-1 {
+  background-color: #4a4a4a;
+  color: white;
+}
+.power-level-2 {
+  background-color: #5a5a5a;
+  color: white;
+}
+.power-level-3 {
+  background-color: #6a6a6a;
+  color: white;
+}
+.power-level-4 {
+  background-color: #7a7a7a;
+  color: white;
+}
+.power-level-5 {
+  background-color: #8a8a8a;
+  color: white;
+}
+.power-level-6 {
+  background-color: #9a9a9a;
+  color: black;
+}
+.power-level-7 {
+  background-color: #ffcc00;
+  color: black;
+}
+.power-level-8 {
+  background-color: #ff9900;
+  color: black;
+}
+.power-level-9 {
+  background-color: #ff6600;
+  color: white;
+}
+.power-level-10 {
+  background-color: #ff3300;
+  color: white;
+}
+
+.bracket-badge {
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.bracket-jank {
+  background-color: #4a4a4a;
+  color: white;
+}
+.bracket-casual {
+  background-color: #7a7a7a;
+  color: white;
+}
+.bracket-focused {
+  background-color: #9a9a9a;
+  color: black;
+}
+.bracket-optimized {
+  background-color: #ffcc00;
+  color: black;
+}
+.bracket-competitive {
+  background-color: #ff3300;
+  color: white;
+}
+
+.deck-analysis-card {
+  background-color: rgba(106, 13, 173, 0.2);
+  border: 1px solid var(--halloween-purple);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.progress {
+  height: 10px;
+  background-color: #444;
+  margin-bottom: 5px;
+}
+
+.progress-bar {
+  background-color: var(--halloween-orange);
+}
+
+.ai-thinking {
+  display: inline-block;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Adicionar este CSS na seção <style> */
+#timer-display {
+  color: var(--halloween-green); /* Cor de destaque para o timer */
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.timer-running {
+  /* Estilo quando o timer estiver rodando, se desejar */
+  animation: pulse-green 2s infinite;
+}
+
+.timer-paused {
+  color: var(--halloween-orange);
+  animation: none;
+}
+
+.timer-finished {
+  color: #ff3300; /* Vermelho para indicar fim do tempo */
+  animation: pulse-red 1s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    text-shadow: 0 0 5px rgba(34, 139, 34, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(34, 139, 34, 0.8);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(34, 139, 34, 0.5);
+  }
+}
+
+@keyframes pulse-red {
+  0% {
+    text-shadow: 0 0 5px rgba(255, 51, 0, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(255, 51, 0, 0.8);
+  }
+  100% {
+    text-shadow: 0 0 5px rgba(255, 51, 0, 0.5);
+  }
+}
